@@ -1,10 +1,15 @@
+<?php
 class Form_model extends CI_Model {
 
 public function save_form_data($formData) {
+
+    $user_id = $this->session->userdata('user_id');
+
     // Save the form data to the database
     $this->db->insert('forms', [
         'title' => $formData['title'],
-        'description' => $formData['description']
+        'description' => $formData['description'],
+        'user_id' => $user_id
     ]);
 
     $formId = $this->db->insert_id();
@@ -15,7 +20,6 @@ public function save_form_data($formData) {
             'question_text' => $question['question'],
             'question_type' => $question['type']
         ]);
-
         $questionId = $this->db->insert_id();
 
         if ($question['type'] !== 'paragraph') {

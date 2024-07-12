@@ -10,7 +10,7 @@
 
             <br>
             <!-- New Questions will get added here -->
-            <div class="question-box" id="question-template" style="display:none;">
+            <div class="question-box" id="question-template" style="display:none;" data-question-type="multiple-choice">
                 <!-- This is the question-box header contains question, type, add an img -->
                 <div class="question-box_header">
                     <input type="text" id="" class="question-box_header_question" style="color: black;" placeholder="Question">
@@ -41,7 +41,7 @@
                 <div id="options-container">
                     <div class="question-box_option-block" id="option-template">
                         <img id="question-type-image" src="<?= base_url() ?>assets/images/circle.png" alt="option circle" width="16px" height="16px">
-                        <input type="text" placeholder="Option1" class="question-box_option-block_option-text">
+                        <input id = "option-text" type="text" placeholder="Option1" class="question-box_option-block_option-text">
                     </div>
                     <br>
                     <!-- New options should be appended here -->

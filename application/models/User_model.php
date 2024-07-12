@@ -1,5 +1,5 @@
 <?php
-//Here Users is the table from the database 
+//Here users is the table from the database 
 
 	class User_model extends CI_Model{
 		public function register($enc_password){
@@ -12,7 +12,7 @@
 			);
 
 			// Insert user
-			return $this->db->insert('Users', $data);
+			return $this->db->insert('users', $data);
 		}
 
 		// Log user in
@@ -21,7 +21,7 @@
 			$this->db->where('username', $username);
 			$this->db->where('password', $password);
 
-			$result = $this->db->get('Users');
+			$result = $this->db->get('users');
 
 			if($result->num_rows() == 1){
 				return $result->row(0)->user_id;
@@ -32,7 +32,7 @@
 
 		// Check username exists
 		public function check_username_exists($username){
-			$query = $this->db->get_where('Users', array('username' => $username));
+			$query = $this->db->get_where('users', array('username' => $username));
 			if(empty($query->row_array())){
 				return true;
 			} else {
@@ -42,7 +42,7 @@
 
 		// Check email exists
 		public function check_email_exists($email){
-			$query = $this->db->get_where('Users', array('email' => $email));
+			$query = $this->db->get_where('users', array('email' => $email));
 			if(empty($query->row_array())){
 				return true;
 			} else {

@@ -7,7 +7,7 @@ class Forms extends CI_Controller
         if(!$this->session->userdata('logged_in')){
             redirect('users/login');
         }
-        $data['title'] = 'Create Post';
+        $data['title'] = 'Create Form';
         $this->load->view('templates/header');
         $this->load->view('forms/create', $data);
         $this->load->view('templates/footer');
@@ -21,6 +21,7 @@ class Forms extends CI_Controller
         // Example: Save the form data to the database
     
         $this->load->model('Form_model');
+        
         $this->Form_model->save_form_data($decodedData);
     
         echo json_encode(['status' => 'success', 'message' => 'Form data submitted successfully']);
