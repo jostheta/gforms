@@ -2,8 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 //Routes of the forms controller
-$route['forms/create'] = 'Forms/create';
-
+$route['create'] = 'Forms/create';
+$route['my_forms'] = 'Forms/my_forms';
+$route['my_drafts'] = 'Forms/my_drafts';
+$route['my_drafts'] = 'Forms/my_drafts/$1';
 
 
 //Routes of the pages controller

@@ -129,6 +129,7 @@ $(document).ready(function() {
             data: { formData: JSON.stringify(formData) },
             success: function(response) {
                 console.log('Form data submitted successfully:', response);
+                window.location.href = base_url + 'my_drafts';
             },
             error: function(xhr, status, error) {
                 console.error('Error submitting form data:', error);

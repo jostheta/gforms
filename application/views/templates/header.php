@@ -18,8 +18,8 @@
                     <li><a href = "<?= base_url(); ?>home">Home</a></li>
                     <li><a href = "<?= base_url(); ?>about">About</a></li>
                 <?php if($this->session->userdata('logged_in')) : ?>
-                    <li><a href="<?= base_url(); ?>posts">My Forms</a></li>
-                    <li><a href="<?= base_url(); ?>categories">My Drafts</a></li>
+                    <li><a href="<?= base_url(); ?>my_forms">My Forms</a></li>
+                    <li><a href="<?= base_url(); ?>my_drafts">My Drafts</a></li>
                 <?php endif; ?>
                 </ul>
                 <ul class = "nav navbar-nav navbar-right">
@@ -28,7 +28,7 @@
                     <li><a href="<?php echo base_url(); ?>users/register">Register</a></li>
                 <?php endif; ?>
                 <?php if($this->session->userdata('logged_in')) : ?>
-                    <li><a href="<?php echo base_url(); ?>forms/create">Create Form</a></li>
+                    <li><a href="<?php echo base_url(); ?>create">Create Form</a></li>
                     <li><a href="<?php echo base_url(); ?>users/logout">Logout</a></li>
                 <?php endif; ?>
                 </ul>
