@@ -6,6 +6,9 @@ $route['create'] = 'Forms/create';
 $route['my_forms'] = 'Forms/my_forms';
 $route['my_drafts'] = 'Forms/my_drafts';
 $route['my_drafts'] = 'Forms/my_drafts/$1';
+$route['forms/delete/(:num)'] = 'forms/delete_form/$1';
+$route['forms/respond/(:num)'] = 'forms/respond/$1';
+
 
 
 //Routes of the pages controller

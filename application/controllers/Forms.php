@@ -63,6 +63,110 @@ class Forms extends CI_Controller
         $this->load->view('forms/view_form', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function delete_form($form_id) {
+        $this->load->model('Form_Model');
+        if ($this->Form_Model->delete_form($form_id)) {
+            $this->session->set_flashdata('message', 'Form deleted successfully.');
+        } else {
+            $this->session->set_flashdata('error', 'There was a problem deleting the form.');
+        }
+        redirect('forms/my_drafts');
+    }
+
+    public function update_form() {
+        $form_id = $this->input->post('form_id');
+        $title = $this->input->post('title');
+        $description = $this->input->post('description');
+        $questions = json_decode($this->input->post('questions'), true);
+    
+        // Load the model
+        $this->load->model('Form_Model');
+    
+        // Update form details
+        $form_data = array(
+            'title' => $title,
+            'description' => $description,
+        );
+        $this->Form_Model->update_form($form_id, $form_data);
+
+        // Update or add questions
+        foreach ($questions as $question) {
+            $question_id = isset($question['question_id']) ? $question['question_id'] : null;
+            $question_data = array(
+                'form_id' => $form_id,
+                'question_text' => $question['question_text'],
+                'question_type' => $question['question_type'],
+            );
+            if ($question_id) {
+                // Update existing question
+                $this->Form_Model->update_question($question_id, $question_data);
+            } else {
+                // Add new question
+                $question_id = $this->Form_Model->add_question($question_data);
+            }
+
+            // Update or add options for each question
+            if (isset($question['options']) && is_array($question['options'])) {
+                foreach ($question['options'] as $option) {
+                    $option_id = isset($option['option_id']) ? $option['option_id'] : null;
+                    $option_data = array(
+                        'question_id' => $question_id,
+                        'option_text' => $option['option_text'],
+                    );
+                    if ($option_id) {
+                        // Update existing option
+                        $this->Form_Model->update_option($option_id, $option_data);
+
+                    } else {
+                        // Add new option
+                        $this->Form_Model->add_option($option_data);
+
+                    }
+
+                }
+            }
+        }
+    
+        // Return success response or redirect
+        echo json_encode(array('success' => true));
+    }
+
+    public function preview($form_id){
+        $data['form'] = $this->Form_model->get_form_by_id($form_id);
+        $data['questions'] = $this->Form_model->get_questions_by_form_id($form_id);
+        foreach ($data['questions'] as &$question) {
+            $question->options = $this->Form_model->get_options_by_question_id($question->question_id);
+        }
+        $this->load->view('templates/header');
+        $this->load->view('forms/preview', $data);
+        $this->load->view('templates/footer');
+    }
+    
+    public function publish_form() {
+        $form_id = $this->input->post('form_id');
+        
+        // Update is_published to 1
+        $this->Form_model->update_form($form_id, ['is_published' => 1]);
+        
+        // Generate a unique link
+        $response_link = base_url("forms/respond/" . $form_id);
+    
+        // Send back the response link
+        echo json_encode(['response_link' => $response_link]);
+    }
+
+    public function respond($form_id){
+        $data['form'] = $this->Form_model->get_form_by_id($form_id);
+        $data['questions'] = $this->Form_model->get_questions_by_form_id($form_id);
+        foreach ($data['questions'] as &$question) {
+            $question->options = $this->Form_model->get_options_by_question_id($question->question_id);
+        }
+        $this->load->view('templates/header');
+        $this->load->view('forms/respond_form');
+        $this->load->view('templates/footer');
+    }
+
 }
 
 

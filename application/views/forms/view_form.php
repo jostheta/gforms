@@ -8,12 +8,12 @@
         <div id="questions-container">
             <?php if (!empty($questions)) : ?>
                 <?php foreach ($questions as $index => $question) : ?>
-                    <div class="question-box" data-question-type="<?= htmlspecialchars($question->question_type, ENT_QUOTES, 'UTF-8') ?>" id="question-template">
+                    <div class="question-box" data-question-type="<?= htmlspecialchars($question->question_type, ENT_QUOTES, 'UTF-8') ?>" id="question-template" data-question_id="<?=htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8')?>">
                         <div class="question-box_header">
                             <input type="text" value="<?= htmlspecialchars($question->question_text, ENT_QUOTES, 'UTF-8') ?>" class="question-box_header_question" style="color: black;" placeholder="Question <?= $index + 1 ?>">
                             <img src="<?= base_url() ?>assets/images/image.png" alt="add an image" height="20px" width="20px">
                             <div class="question-box_header_question-type">
-                                <select class="question-box_header_question-type_select">
+                                <select id="question-type" class="question-box_header_question-type_select">
                                     <option value="multiple-choice" <?= $question->question_type == 'multiple-choice' ? 'selected' : '' ?>>Multiple choice</option>
                                     <option value="checkbox" <?= $question->question_type == 'checkbox' ? 'selected' : '' ?>>Checkbox</option>
                                     <option value="paragraph" <?= $question->question_type == 'paragraph' ? 'selected' : '' ?>>Paragraph</option>
@@ -33,7 +33,7 @@
                         <div id="options-container" style="display: <?= $question->question_type == 'paragraph' ? 'none' : 'block' ?>;">
                             <?php if (!empty($question->options)) : ?>
                                 <?php foreach ($question->options as $optionIndex => $option) : ?>
-                                    <div class="question-box_option-block" id="option-template">
+                                    <div class="question-box_option-block" id="option-template" data-option_id="<?=htmlspecialchars($option->option_id, ENT_QUOTES, 'UTF-8') ?>" >
                                         <img id="question-type-image"src="<?= base_url() ?>assets/images/<?= $question->question_type == 'multiple-choice' ? 'circle' : 'square' ?>.png" alt="option <?= $question->question_type ?>" width="16px" height="16px">
                                         <input type="text" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" class="question-box_option-block_option-text" placeholder="Option <?= $optionIndex + 1 ?>">
                                         <?php if ($optionIndex > 0) : ?>
@@ -64,7 +64,7 @@
             <button id="add-question">
                 <img src="<?= base_url() ?>assets/images/add.png" width="20px" height="20px" alt="add button">
             </button>
-            <button id="submit-form" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Submit</button>
+            <button id="update-form" data-form_id="<?=$form->form_id;?>" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Update</button>
         </div>
     </div>
 </div>

@@ -62,9 +62,9 @@
 
         <div class="sidebar">
             <button id="add-question">
-                <img src="<?= base_url() ?>assets/images/add.png" width="20px" height="20px" alt="add button">
-                <button id="submit-form" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Submit</button>
+            <img src="<?= base_url() ?>assets/images/add.png" width="20px" height="20px" alt="add button">
             </button>
+            <button id="submit-form" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Submit</button>
         </div>
     </div>
 </div>

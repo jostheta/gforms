@@ -56,4 +56,57 @@ class Form_model extends CI_Model {
     return $query->result();
     }
 
+    public function delete_form($form_id) {
+        // Begin transaction
+        $this->db->trans_start();
+        // Delete options related to the form using a join
+        $this->db->query("DELETE o FROM options o
+                          JOIN questions q ON o.question_id = q.question_id
+                          WHERE q.form_id = ?", array($form_id));
+
+        // Delete questions related to the form
+        $this->db->where('form_id', $form_id);
+        $this->db->delete('questions');
+
+        // Delete the form itself
+        $this->db->where('form_id', $form_id);
+        $this->db->delete('forms');
+
+        // Complete transaction
+        $this->db->trans_complete();
+
+        // Check transaction status
+        return $this->db->trans_status();
+    }
+
+    public function update_form($form_id, $data) {
+        $this->db->where('form_id', $form_id);
+        $this->db->update('forms', $data);
+    }
+
+    // Update question details
+    public function update_question($question_id, $data) {
+        $this->db->where('question_id', $question_id);
+        $this->db->update('questions', $data);
+    }
+
+    // Add new question
+    public function add_question($data) {
+        $this->db->insert('questions', $data);
+        return $this->db->insert_id();
+    }
+
+    // Update option details
+    public function update_option($option_id, $data) {
+        $this->db->where('option_id', $option_id);
+        $this->db->update('options', $data);
+    }
+
+    // Add new option
+    public function add_option($data) {
+        $this->db->insert('options', $data);
+        return $this->db->insert_id();
+    }
+  
+    
 }

@@ -136,4 +136,87 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).ready(function() {
+        $('#update-form').click(function() {
+            var form_id = $(this).data('form_id');
+            var title = $('#form-title').val();
+            var description = $('#form-desc').val();
+            var questions = [];
+    
+            $('.question-box:visible').each(function() {
+                var question_id = $(this).data('question_id');
+                var question_text = $(this).find('.question-box_header_question').val();
+                var question_type = $(this).find('#question-type').val();
+                var options = [];
+    
+                $(this).find('.question-box_option-block').each(function() {
+                    var option_id = $(this).data('option_id');
+                    var option_text = $(this).find('input').val();
+                    options.push({
+                        option_id: option_id,
+                        option_text: option_text
+                    });
+                });
+    
+                questions.push({
+                    question_id: question_id,
+                    question_text: question_text,
+                    question_type: question_type,
+                    options: options
+                });
+            });
+    
+            var formData = {
+                form_id: form_id,
+                title: title,
+                description: description,
+                questions: JSON.stringify(questions)
+            };
+    
+            console.log(formData);
+    
+            $.ajax({
+                url: base_url + 'forms/update_form',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Form updated successfully:', response);
+                    window.location.href = base_url + 'my_drafts';
+                    // Handle success response
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error updating form:', error);
+                    console.log(error);
+                    // Handle error
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $('#publish-form').click(function() {
+            var form_id = $(this).data('form_id');
+    
+            $.ajax({
+                url: base_url + 'forms/publish_form',
+                type: 'POST',
+                data: { form_id: form_id },
+                dataType: 'json',
+                success: function(response) {
+                    alert('Form published successfully! Share this link: ' + response.response_link);
+                    // Optionally, redirect to a page or show the link in the UI
+                    // window.location.href = response.response_link;
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error publishing form:', error);
+                    console.log(xhr.responseText);
+                    // Handle error
+                }
+            });
+        });
+    });
+    
+    
 });
