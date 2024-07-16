@@ -20,6 +20,7 @@
                 <?php if($this->session->userdata('logged_in')) : ?>
                     <li><a href="<?= base_url(); ?>my_forms">My Forms</a></li>
                     <li><a href="<?= base_url(); ?>my_drafts">My Drafts</a></li>
+                    <li><a href="<?=base_url(); ?>responses">Responses</a></li>
                 <?php endif; ?>
                 </ul>
                 <ul class = "nav navbar-nav navbar-right">

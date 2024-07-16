@@ -107,6 +107,76 @@ class Form_model extends CI_Model {
         $this->db->insert('options', $data);
         return $this->db->insert_id();
     }
+
+    public function save_responses($form_id, $responses) {
+        $this->db->trans_start();
+        
+        // Insert response record
+        $response_data = [
+            'form_id' => $form_id,
+            'user_id' => $this->session->userdata('user_id'), // Set user_id if applicable
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+        $this->db->insert('responses', $response_data);
+        $response_id = $this->db->insert_id();
+        
+        // Insert each answer
+        foreach ($responses as $question_id => $answer) {
+            if (is_array($answer)) {
+                foreach ($answer as $answer_text) {
+                    $answer_data = [
+                        'response_id' => $response_id,
+                        'question_id' => $question_id,
+                        'answer_text' => $answer_text,
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ];
+                    $this->db->insert('response_answers', $answer_data);
+                }
+            } else {
+                $answer_data = [
+                    'response_id' => $response_id,
+                    'question_id' => $question_id,
+                    'answer_text' => $answer,
+                    'created_at' => date('Y-m-d H:i:s'),
+                ];
+                $this->db->insert('response_answers', $answer_data);
+            }
+        }
+        
+        $this->db->trans_complete();
+        
+        return $this->db->trans_status();
+    }
+
+    public function get_forms_by_user($user_id) {
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('forms');
+        return $query->result();
+    }
+    
+    public function get_responses_by_form($form_id) {
+        $this->db->where('form_id', $form_id);
+        $query = $this->db->get('responses');
+        return $query->result();
+    }
+    
+    public function get_response($response_id) {
+        $this->db->where('response_id', $response_id);
+        $query = $this->db->get('responses');
+        $response = $query->row();
+        
+        $this->db->where('response_id', $response_id);
+        $query = $this->db->get('response_answers');
+        $response->answers = $query->result();
+        
+        return $response;
+    }
+    
+    public function get_form($form_id) {
+        $this->db->where('form_id', $form_id);
+        $query = $this->db->get('forms');
+        return $query->row();
+    }
   
     
 }

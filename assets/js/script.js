@@ -196,27 +196,29 @@ $(document).ready(function() {
     });
 
     $(document).ready(function() {
-        $('#publish-form').click(function() {
-            var form_id = $(this).data('form_id');
+        $('#response-form').on('submit', function(e) {
+            e.preventDefault();
     
             $.ajax({
-                url: base_url + 'forms/publish_form',
-                type: 'POST',
-                data: { form_id: form_id },
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
                 dataType: 'json',
-                success: function(response) {
-                    alert('Form published successfully! Share this link: ' + response.response_link);
-                    // Optionally, redirect to a page or show the link in the UI
-                    // window.location.href = response.response_link;
+                success: function(data) {
+                    if (data.success) {
+                        alert('Response submitted successfully!');
+                        // Optionally, you can clear the form or redirect the user
+                        window.location.href = base_url + 'my_forms';
+                    } else {
+                        alert('An error occurred. Please try again.');
+                    }
                 },
-                error: function(xhr, status, error) {
-                    console.error('Error publishing form:', error);
-                    console.log(xhr.responseText);
-                    // Handle error
+                error: function() {
+                    alert('An error occurred. Please try again.');
                 }
             });
         });
     });
-    
+       
     
 });

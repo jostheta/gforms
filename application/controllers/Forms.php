@@ -5,6 +5,7 @@ class Forms extends CI_Controller
     public function __construct() {
         parent::__construct();
         $this->load->model('Form_model');
+        $this->load->library('session');
     }
 
     public function create(){
@@ -143,17 +144,24 @@ class Forms extends CI_Controller
         $this->load->view('templates/footer');
     }
     
-    public function publish_form() {
-        $form_id = $this->input->post('form_id');
+    public function publish_form($form_id) {
         
         // Update is_published to 1
         $this->Form_model->update_form($form_id, ['is_published' => 1]);
         
         // Generate a unique link
         $response_link = base_url("forms/respond/" . $form_id);
-    
-        // Send back the response link
-        echo json_encode(['response_link' => $response_link]);
+
+        // Prepare data for the view
+        $data = [];
+        $data['response_link'] = $response_link;
+        $data['forms'] = $this->Form_model->get_all_forms();
+
+        $this->load->view('templates/header');
+        $this->load->view('forms/myforms',$data);
+        $this->load->view('templates/footer');
+
+
     }
 
     public function respond($form_id){
@@ -163,7 +171,54 @@ class Forms extends CI_Controller
             $question->options = $this->Form_model->get_options_by_question_id($question->question_id);
         }
         $this->load->view('templates/header');
-        $this->load->view('forms/respond_form');
+        $this->load->view('forms/respond_form',$data);
+        $this->load->view('templates/footer');
+    }
+
+    public function submit_response() {
+        $this->load->model('Form_model');
+        
+        $form_id = $this->input->post('form_id');
+        $responses = $this->input->post('responses');
+        
+        if ($this->Form_model->save_responses($form_id, $responses)) {
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode(['success' => true]));
+        } else {
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode(['success' => false]));
+        }
+    }
+
+    // List all forms of the current logged-in user
+    public function list_user_forms() {
+        $user_id = $this->session->userdata('user_id');
+        $data['forms'] = $this->Form_model->get_forms_by_user($user_id);
+        
+        $this->load->view('templates/header');
+        $this->load->view('forms/user_forms', $data);
+        $this->load->view('templates/footer');
+    }
+    
+    // List all responses for a particular form
+    public function list_form_responses($form_id) {
+        $data['responses'] = $this->Form_model->get_responses_by_form($form_id);
+        $data['form'] = $this->Form_model->get_form($form_id);
+        
+        $this->load->view('templates/header');
+        $this->load->view('forms/form_responses', $data);
+        $this->load->view('templates/footer');
+    }
+    
+    // View a specific response
+    public function view_response($response_id) {
+        $data['response'] = $this->Form_model->get_response($response_id);
+        $data['form'] = $this->Form_model->get_form($data['response']->form_id);
+        
+        $this->load->view('templates/header');
+        $this->load->view('forms/view_response', $data);
         $this->load->view('templates/footer');
     }
 

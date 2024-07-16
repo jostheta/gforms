@@ -44,7 +44,7 @@
                         <p>No questions found for this form.</p>
                     <?php endif; ?>
                 </div>
-                <button type="submit" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Submit</button>
+                <button class="response-submit" type="submit" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Submit</button>
             </form>
         </div>
     </div>

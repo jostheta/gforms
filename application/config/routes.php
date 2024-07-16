@@ -8,6 +8,7 @@ $route['my_drafts'] = 'Forms/my_drafts';
 $route['my_drafts'] = 'Forms/my_drafts/$1';
 $route['forms/delete/(:num)'] = 'forms/delete_form/$1';
 $route['forms/respond/(:num)'] = 'forms/respond/$1';
+$route['responses'] = 'Forms/list_user_forms';
 
 
 
