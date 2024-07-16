@@ -184,7 +184,64 @@ class Form_model extends CI_Model {
         $query = $this->db->get('forms');
         return $query->result();
     }
+
+    public function delete_for_edit($form_id) {
+        // Fetch question IDs
+        $question_ids = $this->db->select('question_id')
+                                 ->from('questions')
+                                 ->where('form_id', $form_id)
+                                 ->get()
+                                 ->result_array();
     
-  
+        // Extract question IDs to a simple array
+        $question_ids = array_column($question_ids, 'question_id');
+    
+        // Delete existing options for the questions of this form
+        if (!empty($question_ids)) {
+            $this->db->where_in('question_id', $question_ids);
+            $this->db->delete('options');
+        }
+    
+        // Delete existing questions for the form
+        $this->db->where('form_id', $form_id);
+        $this->db->delete('questions');
+    }
+    
+    public function save_for_edit($formData, $form_id) {
+        $user_id = $this->session->userdata('user_id');
+    
+        // Log the formData being processed
+        log_message('debug', 'Saving for form_id: ' . $form_id . ', formData: ' . print_r($formData, true));
+    
+        foreach ($formData['questions'] as $question) {
+            $this->db->insert('questions', [
+                'form_id' => $form_id,
+                'question_text' => $question['question_text'],
+                'question_type' => $question['question_type']
+            ]);
+            $question_id = $this->db->insert_id();
+    
+            // Log the insert question SQL
+            log_message('debug', 'Insert question SQL: ' . $this->db->last_query());
+    
+            if ($question['question_type'] !== 'paragraph') {
+                foreach ($question['options'] as $option) {
+                    $this->db->insert('options', [
+                        'question_id' => $question_id,
+                        'option_text' => $option['option_text']
+                    ]);
+    
+                    // Log the insert option SQL
+                    log_message('debug', 'Insert option SQL: ' . $this->db->last_query());
+                }
+            }
+        }
+    }
+    
+    
+    
     
 }
+  
+    
+

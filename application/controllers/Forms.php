@@ -242,15 +242,39 @@ class Forms extends CI_Controller
     $this->load->view('templates/footer');
     }
 
-    public function edit_form(){
+    public function edit_form($form_id) {
+        $this->load->model('Form_model');
+    
         $formData = $this->input->post('formData');
         $decodedData = json_decode($formData, true);
-        // Process the form data here
-        // Example: Save the form data to the database
     
-        $this->load->model('Form_model');
+        if (!$decodedData) {
+            log_message('error', 'Failed to decode form data: ' . $formData);
+            echo json_encode(['status' => 'error', 'message' => 'Invalid form data']);
+            return;
+        }
+    
+        log_message('debug', 'Decoded form data: ' . print_r($decodedData, true));
+    
+        $form_data = array(
+            'title' => $decodedData['title'],
+            'description' => $decodedData['description'],
+        );
+    
+        try {
+            $this->Form_model->update_form($form_id, $form_data);
+            $this->Form_model->delete_for_edit($form_id);
+            $this->Form_model->save_for_edit($decodedData, $form_id);
+    
+            echo json_encode(['status' => 'success', 'message' => 'Form data updated successfully.']);
+        } catch (Exception $e) {
+            log_message('error', 'Exception occurred: ' . $e->getMessage());
+            echo json_encode(['status' => 'error', 'message' => 'An error occurred while updating the form data.']);
+        }
     }
-
+    
+    
+    
 
 
 }

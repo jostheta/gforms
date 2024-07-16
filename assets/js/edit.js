@@ -117,6 +117,7 @@ $(document).ready(function() {
     }).trigger('change');
 
     $('#update-form').click(function() {
+        var form_id = $(this).data('form_id');
         var formData = {
             title: $('#form-title').val(),
             description: $('#form-desc').val(),
@@ -143,10 +144,13 @@ $(document).ready(function() {
             formData.questions.push(questionData);
         });
     
-        console.log(formData);
+        console.log('Form Data:', formData);
+    
+        var url = base_url + 'edit_form/' + form_id;
+        console.log('AJAX URL:', url);
     
         $.ajax({
-            url: base_url + 'forms/edit_form',
+            url: url,
             type: 'POST',
             data: { formData: JSON.stringify(formData) },
             success: function(response) {
@@ -155,7 +159,11 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.error('Error updating form data:', error);
+                console.log('XHR:', xhr);
+                console.log('Status:', status);
             }
         });
     });
+    
+    
 });
