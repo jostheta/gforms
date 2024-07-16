@@ -44,8 +44,10 @@
                         <input id = "option-text" type="text" placeholder="Option1" class="question-box_option-block_option-text">
                     </div>
                     <br>
-                    <!-- New options should be appended here -->
-                    <div id="new-options"></div>
+                    
+                    <div id="new-options">
+                        <!-- New options should be appended here -->
+                    </div>
                     <!-- To Add a new option -->
                     <div class="question-box_add-option">
                         <button id="add-option" style="color:#1a73e8;font-weight: 500;">Add Option</button>
