@@ -17,17 +17,16 @@
                             </div>
                             <br>
                             <?php
-                            $answer_text = '';
+                            $answer_texts = [];
                             foreach ($response->answers as $answer) {
                                 if ($answer->question_id == $question->question_id) {
-                                    $answer_text = htmlspecialchars($answer->answer_text, ENT_QUOTES, 'UTF-8');
-                                    break;
+                                    $answer_texts[] = htmlspecialchars($answer->answer_text, ENT_QUOTES, 'UTF-8');
                                 }
                             }
                             ?>
                             <?php if ($question->question_type == 'paragraph') : ?>
                                 <div class="question-box_short-answer">
-                                    <textarea name="responses[<?= $question->question_id ?>]" placeholder="Paragraph" readonly><?= $answer_text ?></textarea>
+                                    <textarea name="responses[<?= $question->question_id ?>]" placeholder="Paragraph" readonly><?= implode("\n", $answer_texts) ?></textarea>
                                 </div>
                             <?php else : ?>
                                 <div id="options-container">
@@ -35,10 +34,10 @@
                                         <?php foreach ($question->options as $optionIndex => $option) : ?>
                                             <div class="question-box_option-block" id="option-template" data-option_id="<?= htmlspecialchars($option->option_id, ENT_QUOTES, 'UTF-8') ?>" >
                                                 <?php if ($question->question_type == 'multiple-choice') : ?>
-                                                    <input type="radio" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= ($answer_text == htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8')) ? 'checked' : '' ?> readonly>
+                                                    <input type="radio" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= (in_array(htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8'), $answer_texts)) ? 'checked' : '' ?> readonly>
                                                     <label for="option-<?= $optionIndex ?>"><?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?></label>
                                                 <?php elseif ($question->question_type == 'checkbox') : ?>
-                                                    <input type="checkbox" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>][]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= (strpos($answer_text, htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8')) !== false) ? 'checked' : '' ?> readonly>
+                                                    <input type="checkbox" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>][]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= (in_array(htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8'), $answer_texts)) ? 'checked' : '' ?> readonly>
                                                     <label for="option-<?= $optionIndex ?>"><?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?></label>
                                                 <?php endif; ?>
                                             </div>

@@ -177,6 +177,14 @@ class Form_model extends CI_Model {
         $query = $this->db->get('forms');
         return $query->row();
     }
+
+    public function get_published_forms_by_user($user_id) {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('is_published', 1); // Ensure only published forms are retrieved
+        $query = $this->db->get('forms');
+        return $query->result();
+    }
+    
   
     
 }

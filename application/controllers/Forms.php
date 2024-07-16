@@ -145,23 +145,17 @@ class Forms extends CI_Controller
     }
     
     public function publish_form($form_id) {
-        
-        // Update is_published to 1
-        $this->Form_model->update_form($form_id, ['is_published' => 1]);
-        
         // Generate a unique link
         $response_link = base_url("forms/respond/" . $form_id);
-
-        // Prepare data for the view
-        $data = [];
-        $data['response_link'] = $response_link;
-        $data['forms'] = $this->Form_model->get_all_forms();
-
-        $this->load->view('templates/header');
-        $this->load->view('forms/myforms',$data);
-        $this->load->view('templates/footer');
-
-
+    
+        // Update is_published to 1 and set the response link
+        $this->Form_model->update_form($form_id, [
+            'is_published' => 1,
+            'response_link' => $response_link
+        ]);
+    
+        // Redirect to the list_user_forms function
+        redirect('forms/list_user_published_forms');
     }
 
     public function respond($form_id){
@@ -214,13 +208,39 @@ class Forms extends CI_Controller
     
     // View a specific response
     public function view_response($response_id) {
+        // Get the response details
         $data['response'] = $this->Form_model->get_response($response_id);
-        $data['form'] = $this->Form_model->get_form($data['response']->form_id);
-        
-        $this->load->view('templates/header');
-        $this->load->view('forms/view_response', $data);
-        $this->load->view('templates/footer');
+        if (empty($data['response'])) {
+        show_404();
+        }
+
+        // Get the form details using the form ID from the response
+        $form_id = $data['response']->form_id;
+        $data['form'] = $this->Form_model->get_form($form_id);
+
+        // Get the questions and their options for the form
+        $data['questions'] = $this->Form_model->get_questions_by_form_id($form_id);
+        foreach ($data['questions'] as &$question) {
+        $question->options = $this->Form_model->get_options_by_question_id($question->question_id);
     }
+
+
+    // Load the views
+    $this->load->view('templates/header');
+    $this->load->view('forms/view_response', $data);
+    $this->load->view('templates/footer');
+}
+
+public function list_user_published_forms() {
+    $user_id = $this->session->userdata('user_id');
+    $data['forms'] = $this->Form_model->get_published_forms_by_user($user_id);
+
+    $this->load->view('templates/header');
+    $this->load->view('forms/user_forms', $data);
+    $this->load->view('templates/footer');
+}
+
+
 
 }
 
