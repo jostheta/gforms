@@ -63,7 +63,7 @@ class Forms extends CI_Controller
         }
         $this->load->view('templates/header', $data);
         $this->load->view('forms/view_form', $data);
-        $this->load->view('templates/footer', $data);
+       //footer intentionally omitted
     }
 
     public function delete_form($form_id) {
@@ -233,14 +233,23 @@ class Forms extends CI_Controller
     $this->load->view('templates/footer');
 }
 
-public function list_user_published_forms() {
+    public function list_user_published_forms() {
     $user_id = $this->session->userdata('user_id');
     $data['forms'] = $this->Form_model->get_published_forms_by_user($user_id);
 
     $this->load->view('templates/header');
     $this->load->view('forms/user_forms', $data);
     $this->load->view('templates/footer');
-}
+    }
+
+    public function edit_form(){
+        $formData = $this->input->post('formData');
+        $decodedData = json_decode($formData, true);
+        // Process the form data here
+        // Example: Save the form data to the database
+    
+        $this->load->model('Form_model');
+    }
 
 
 
