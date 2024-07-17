@@ -1,30 +1,57 @@
-<!-- application/views/responses/view.php -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Form Responses</title>
+    <link rel= "stylesheet" href = "<?= base_url() ?>assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Change align-items to flex-start to avoid centering */
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: Roboto, sans-serif;
+            background-color: #f0ebf8;
+            overflow-y: auto; /* Ensure vertical scrolling is enabled */
         }
         .container {
-            max-width: 600px;
+            width: 90%;
+            max-width: 700px;
             padding: 20px;
             background: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0; /* Add margin to the top and bottom to provide space around the container */
+        }
+        .question-box {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .question-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
         }
         .chart-container {
+            margin-top: 30px;
             margin-bottom: 20px;
+            width:300px;
+            margin-left:200px;
+            
         }
         .paragraph-answer {
             margin-bottom: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        .paragraph-answer p {
+            margin: 0;
         }
     </style>
 </head>
@@ -32,8 +59,8 @@
     <div class="container">
         <h1 style="text-align: center;">Form Responses</h1>
         <?php foreach ($data as $question_id => $question): ?>
-            <div>
-                <h2><?php echo $question['question_text']; ?></h2>
+            <div class="question-box">
+                <h2 class="question-title"><?php echo $question['question_text']; ?></h2>
                 <?php if ($question['question_type'] == 'multiple-choice'): ?>
                     <?php if (!empty($question['options'])): ?>
                         <div class="chart-container">

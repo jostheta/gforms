@@ -16,7 +16,6 @@
             <div id = "navbar">
                 <ul class = "nav navbar-nav">
                     <li><a href = "<?= base_url(); ?>home">Home</a></li>
-                    <li><a href = "<?= base_url(); ?>about">About</a></li>
                 <?php if($this->session->userdata('logged_in')) : ?>
                     <li><a href="<?= base_url(); ?>my_forms">My Forms</a></li>
                     <li><a href="<?= base_url(); ?>my_drafts">My Drafts</a></li>

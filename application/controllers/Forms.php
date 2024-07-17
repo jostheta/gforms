@@ -37,7 +37,7 @@ class Forms extends CI_Controller
     public function my_forms() {
 
         $this->load->model('Form_model');
-        $data['forms'] = $this->Form_model->get_all_forms();
+        $data['forms'] = $this->Form_model->get_all_user_forms();
         $this->load->view('templates/header');
         $this->load->view('forms/myforms', $data);
         $this->load->view('templates/footer');
@@ -47,7 +47,7 @@ class Forms extends CI_Controller
     public function my_drafts() {
 
         $this->load->model('Form_model');
-        $data['forms'] = $this->Form_model->get_all_forms();
+        $data['forms'] = $this->Form_model->get_all_user_forms();
         $this->load->view('templates/header');
         $this->load->view('forms/mydrafts', $data);
         $this->load->view('templates/footer');
@@ -159,16 +159,31 @@ class Forms extends CI_Controller
         redirect('forms/list_user_published_forms');
     }
 
-    public function respond($form_id){
+    public function respond($form_id) {
+        // Check if user is logged in
+        if (!$this->session->userdata('user_id')) {
+            // Set flash message
+            $this->session->set_flashdata('error', 'Please login to respond to the form.');
+    
+            // Redirect to login page with form ID
+            redirect('users/login_redirect/' . $form_id);
+        }
+    
+        // Load form, questions, and options data if user is logged in
         $data['form'] = $this->Form_model->get_form_by_id($form_id);
         $data['questions'] = $this->Form_model->get_questions_by_form_id($form_id);
         foreach ($data['questions'] as &$question) {
             $question->options = $this->Form_model->get_options_by_question_id($question->question_id);
         }
+    
+        // Load the views
         $this->load->view('templates/header');
-        $this->load->view('forms/respond_form',$data);
+        $this->load->view('forms/respond_form', $data);
         $this->load->view('templates/footer');
     }
+    
+
+    
 
     public function submit_response() {
         $this->load->model('Form_model');

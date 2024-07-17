@@ -36,10 +36,13 @@ class Form_model extends CI_Model {
         }
 }
 
-    public function get_all_forms() {
+    public function get_all_user_forms() {
+    $user_id = $this->session->userdata('user_id');
+    $this->db->where('user_id', $user_id);
     $query = $this->db->get('forms');
     return $query->result();
-    }
+}
+
 
     public function get_form_by_id($form_id) {
     $query = $this->db->get_where('forms', array('form_id' => $form_id));
