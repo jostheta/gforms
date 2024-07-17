@@ -11,6 +11,8 @@ $route['forms/respond/(:num)'] = 'forms/respond/$1';
 $route['responses'] = 'Forms/list_user_forms';
 $route['edit_form/(:num)'] = 'Forms/edit_form/$1';
 
+$route['responses/index/(:num)'] = 'Responses/index/$1';
+
 
 
 //Routes of the pages controller
