@@ -24,9 +24,8 @@
 
   .section{
     margin: 0 auto;
-    width: 50%;
     display: flex;
-    width: 52%;
+    
     align-items: center;
   }
 
@@ -50,7 +49,7 @@
     border-radius: 8px;
     padding: 30px 25px;
     text-transform: capitalize;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   }
 
   .form_container_top_title{
@@ -91,7 +90,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     font-family: 'Roboto';
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
    
   }
 
@@ -290,7 +289,32 @@ tr:nth-child(even) {
    
 }
 
+.sidebar{
+  background-color: white;
+  margin-left: 13px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  border-radius: 5px;
+}
 
+.submit-button{
+  color: #fff; 
+  background-color: #7349bd; 
+  font-family:'Roboto';
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  width: 96px;
+  border-radius: 5px;
+  text-align: center;
+  margin-left:328px;
+  margin-top: 10px;
+}
+
+.add-question-button{
+  border:none;
+  background-color: white;
+}
 
 
 

@@ -63,12 +63,12 @@
         </div>
 
         <div class="sidebar">
-            <button id="add-question">
+            <button id="add-question" class="add-question-button">
             <img src="<?= base_url() ?>assets/images/add.png" width="20px" height="20px" alt="add button">
             </button>
-            <button id="submit-form" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Submit</button>
         </div>
     </div>
+    <button id="submit-form" class="submit-button">Submit</button>
 </div>
 
     <!-- now we are trying the side bar -->
