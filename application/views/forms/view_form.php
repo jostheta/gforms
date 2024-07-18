@@ -2,8 +2,10 @@
     <br>
     <div class="section">
         <div class="form-container">
+        <div class="form_container_top">
             <input type="text" id="form-title" value="<?= htmlspecialchars($form->title, ENT_QUOTES, 'UTF-8') ?>" class="form_container_top_title" style="color: black;" placeholder="Untitled Form">
             <input type="text" id="form-desc" value="<?= htmlspecialchars($form->description, ENT_QUOTES, 'UTF-8') ?>" class="form_container_top_desc" style="color: black;" placeholder="Form Description">
+        </div>
 
             <div id="questions-container">
                 <?php if (!empty($questions)) : ?>

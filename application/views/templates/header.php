@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/bootstrap.min.css">
     <link rel= "stylesheet" href = "<?= base_url() ?>assets/css/style.css">
 </head>
-<body style="background-color:#f0ebf8;">
-    <nav class = "navbar navbar-inverse" style="background-color:rgb(103, 58, 183);">
+<body style="background-color:white;"><!--#f0ebf8-->
+    <nav class = "navbar navbar-inverse" style="background-color:rgb(103, 58, 183); margin-bottom:0px;">
         <div class = "container">
             <div id = "nav-header" class = "navbar-header">
                 <a  class = "navbar-brand" href="<?= base_url(); ?>">Gforms</a>
@@ -36,7 +36,7 @@
         </div>
     </nav>
 
-  <div class = "layout" >  
+  <div class = "layout"  >  
 
     <?php if($this->session->flashdata('user_registered')): ?>
             <?php echo '<p class="alert alert-success">'.$this->session->flashdata('user_registered').'</p>'; ?>

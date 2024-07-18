@@ -1,19 +1,23 @@
 <div class="page_layout">
     <br>
     <div class="section">
-        <div class="form-container">
-            <h1><?= htmlspecialchars($form->title, ENT_QUOTES, 'UTF-8') ?></h1>
-            <p><?= htmlspecialchars($form->description, ENT_QUOTES, 'UTF-8') ?></p>
-
-            <h2>Response ID: <?= $response->response_id ?></h2>
-            <h3>Submitted At: <?= date('Y-m-d H:i:s', strtotime($response->created_at)) ?></h3>
-
+    <div class="form_container-response">
+            <div class="form_container_top">
+                <div class = "form_container_top_title" style="border-bottom:none;"><?= htmlspecialchars($form->title, ENT_QUOTES, 'UTF-8') ?></div>
+                <div class = "form_container_top_desc" style="border-bottom:none;"><?= htmlspecialchars($form->description, ENT_QUOTES, 'UTF-8') ?></div>
+                <div>
+                    <br>
+                    <div class = "form_container_top_user-details">Response ID: <?= $response->response_id ?></div>
+                    <div class = "form_container_top_user-details">Submitted At: <?= date('Y-m-d H:i:s', strtotime($response->created_at)) ?></div>
+                </div>
+            </div>
+            
             <div id="questions-container">
                 <?php if (!empty($questions)) : ?>
                     <?php foreach ($questions as $index => $question) : ?>
                         <div class="question-box" data-question-type="<?= htmlspecialchars($question->question_type, ENT_QUOTES, 'UTF-8') ?>">
                             <div class="question-box_header">
-                                <h3><?= htmlspecialchars($question->question_text, ENT_QUOTES, 'UTF-8') ?></h3>
+                                <div class="response-questions" style="color:black;"><?= htmlspecialchars($question->question_text, ENT_QUOTES, 'UTF-8') ?></div>
                             </div>
                             <br>
                             <?php
@@ -26,7 +30,7 @@
                             ?>
                             <?php if ($question->question_type == 'paragraph') : ?>
                                 <div class="question-box_short-answer">
-                                    <textarea name="responses[<?= $question->question_id ?>]" placeholder="Paragraph" readonly><?= implode("\n", $answer_texts) ?></textarea>
+                                    <textarea class="response-text-area" name="responses[<?= $question->question_id ?>]" placeholder="Paragraph" readonly><?= implode("\n", $answer_texts) ?></textarea>
                                 </div>
                             <?php else : ?>
                                 <div id="options-container">
@@ -34,11 +38,11 @@
                                         <?php foreach ($question->options as $optionIndex => $option) : ?>
                                             <div class="question-box_option-block" id="option-template" data-option_id="<?= htmlspecialchars($option->option_id, ENT_QUOTES, 'UTF-8') ?>" >
                                                 <?php if ($question->question_type == 'multiple-choice') : ?>
-                                                    <input type="radio" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= (in_array(htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8'), $answer_texts)) ? 'checked' : '' ?> readonly>
-                                                    <label for="option-<?= $optionIndex ?>"><?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?></label>
+                                                    &nbsp;<input type="radio" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= (in_array(htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8'), $answer_texts)) ? 'checked' : '' ?> readonly>
+                                                    <label style="padding-top:12px;" for="option-<?= $optionIndex ?>"><?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?></label>
                                                 <?php elseif ($question->question_type == 'checkbox') : ?>
-                                                    <input type="checkbox" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>][]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= (in_array(htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8'), $answer_texts)) ? 'checked' : '' ?> readonly>
-                                                    <label for="option-<?= $optionIndex ?>"><?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?></label>
+                                                    &nbsp;<input type="checkbox" id="option-<?= $optionIndex ?>" name="responses[<?= $question->question_id ?>][]" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" <?= (in_array(htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8'), $answer_texts)) ? 'checked' : '' ?> readonly>
+                                                    <label style="padding-top:12px;" for="option-<?= $optionIndex ?>"><?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?></label>
                                                 <?php endif; ?>
                                             </div>
                                             <br>

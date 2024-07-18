@@ -4,8 +4,8 @@
     <div class="section">
         <div class="form_container">
             <div class="form_container_top">
-                <input type="text" id="form-title" class="form_container_top_title" style="color: black;" placeholder="Untitled Form">
-                <input type="text" id="form-desc" class="form_container_top_desc" style="color: black;" placeholder="Form Description">
+                <input type="text" id="form-title" class="form_container_top_title" style="color: black;" placeholder="Untitled Form" required autofocus>
+                <input type="text" id="form-desc" class="form_container_top_desc" style="color: black;" placeholder="Form Description" required autofocus>
             </div>
 
             <br>
@@ -13,7 +13,7 @@
             <div class="question-box" id="question-template" style="display:none;" data-question-type="multiple-choice">
                 <!-- This is the question-box header contains question, type, add an img -->
                 <div class="question-box_header">
-                    <input type="text" id="" class="question-box_header_question" style="color: black;" placeholder="Question">
+                    <input type="text" id="" class="question-box_header_question" style="color: black;" placeholder="Question" required autofocus>
                     <img src="<?= base_url() ?>assets/images/image.png" alt="add an image" height="20px" width="20px">
                     <div class="question-box_header_question-type">
                         <select id="question-type" class="question-box_header_question-type_select">

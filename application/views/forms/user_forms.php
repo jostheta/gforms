@@ -15,7 +15,11 @@
                <?php foreach ($forms as $form) : ?>
                     <?php if ($form->is_published == 1) : ?>
                         <tr>
-                        <td><a href="<?= base_url() ?>forms/list_form_responses/<?=$form->form_id?>"><?= htmlspecialchars($form->title, ENT_QUOTES, 'UTF-8') ?></a></td>
+                        <td>
+                            <a href="<?= base_url() ?>forms/list_form_responses/<?=$form->form_id?>">
+                                <?= htmlspecialchars($form->title ? $form->title : $form->form_id, ENT_QUOTES, 'UTF-8') ?>
+                             </a>
+                        </td>
                         <td><?= date('Y-m-d H:i:s', strtotime($form->created_at)) ?></td>
                         <td><a href="<?= $form->response_link ?>"><?= $form->response_link ?></a></td>
                         </tr>

@@ -27,13 +27,21 @@
     width: 50%;
     display: flex;
     width: 52%;
+    align-items: center;
   }
 
   .form_container{
     display:flex;
     flex-direction: column;
-    width: 100%;
+    width: 800px;
+    
     }
+
+  .form_container-response{
+    display:flex;
+    flex-direction: column;
+    width: 640px;
+  }
 
 
   .form_container_top{
@@ -42,13 +50,14 @@
     border-radius: 8px;
     padding: 30px 25px;
     text-transform: capitalize;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   }
 
   .form_container_top_title{
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', Helvetica, sans-serif;
     font-size: 32px;
-    font-weight: 400;
+    font-weight: 350;
     line-height: 135%;
     width: 100%;
     border: none;
@@ -56,13 +65,15 @@
     border-bottom: 1px solid #f4f4f9;
     color: black;
     height: 35px;
+    margin-bottom: 20px;
+
   }
 
   .form_container_top_desc{
     box-sizing: border-box;
     margin-top: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    font-size: 11pt;
     font-weight: 400;
     line-height: 100%;
     width: 100%;
@@ -80,6 +91,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
     font-family: 'Roboto';
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+   
   }
 
  
@@ -189,6 +202,9 @@
     background-color: white;
     border:none;
   }
+  .question-box_short-answer{
+    display:flex;
+  }
 
   .question-box_short-answer_placeholder {
     border-bottom: 1px dotted #000;
@@ -196,6 +212,7 @@
     padding-bottom: 5px;
     color: #999;
     font-style: italic;
+    margin-left: 13px;
 }
 
 table {
@@ -213,6 +230,65 @@ tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
+.response-submit{
+  color: #fff; 
+  background-color: #7349bd; 
+  font-family:'Roboto';
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  width: 96px;
+  border-radius: 5px;
+}
+
+.publish-button{
+  color: #fff; 
+  background-color: #7349bd; 
+  font-family:'Roboto';
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  width: 96px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.form_container_top_user-details{
+  box-sizing: border-box;
+  margin-top: 10px;
+  font-family: 'Roboto', Helvetica, sans-serif;
+  font-size: 11pt;
+  font-weight: 400;
+  line-height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: gray;
+  height: 20px;
+}
+
+.response-text-area{
+  width:100%;
+  margin-left: 10px;
+  border:none;
+  outline:none;
+}
+
+.response-quesitons{
+    font-family: 'Roboto';
+    color:#000;
+    font-weight: 500;
+    font-size: 12pt;
+    line-height: 1.5;
+    letter-spacing: 0;
+    width: 424px;
+    height: 50px;
+    padding: 16px;
+    box-sizing: border-box;
+    border: none; /* Remove default border */
+    outline: none; /* Remove default focus outline */
+   
+}
 
 
 
