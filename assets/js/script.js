@@ -16,6 +16,9 @@ $(document).ready(function() {
 
         // Append the cloned question to the form container
         $('#question-template').parent().append(newQuestion);
+
+        // Scroll to the newly added question and set it as active
+        setActiveQuestion(newQuestion);
     });
 
     // Add new option to a question
@@ -93,6 +96,26 @@ $(document).ready(function() {
         questionBox.attr('data-question-type', selectedType);
     }).trigger('change');
 
+    // Function to set the active question and scroll the sidebar
+    function setActiveQuestion(questionBox) {
+        // Remove active class from all question boxes
+        $('.question-box').removeClass('active');
+
+        // Add active class to the clicked question box
+        questionBox.addClass('active');
+
+        // Scroll sidebar to the active question
+        var offset = questionBox.offset().top - $('.sidebar').offset().top;
+        $('.sidebar').animate({
+            scrollTop: offset + $('.sidebar').scrollTop()
+        }, 500);
+    }
+
+    // Add click event listener to all question boxes to set active question
+    $(document).on('click', '.question-box', function() {
+        setActiveQuestion($(this));
+    });
+
     // Submit form
     $('#submit-form').click(function() {
         var formData = {
@@ -136,6 +159,9 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+
 
     $(document).ready(function() {
         $('#update-form').click(function() {
@@ -221,4 +247,4 @@ $(document).ready(function() {
     });
        
     
-});
+

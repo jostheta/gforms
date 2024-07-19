@@ -146,6 +146,35 @@ class Forms extends CI_Controller
     }
     
     public function publish_form($form_id) {
+        // Load form and questions data
+        $form = $this->Form_model->get_form_by_id($form_id);
+        $questions = $this->Form_model->get_questions_by_form_id($form_id);
+    
+        // Validation checks
+        if (empty($form->title)) {
+            $this->session->set_flashdata('error', 'Form title cannot be empty.');
+            redirect('forms/preview/' . $form_id);
+            return;
+        }
+    
+        foreach ($questions as $question) {
+            if (empty($question->question_text)) {
+                $this->session->set_flashdata('error', 'All questions must have text.');
+                redirect('forms/preview/' . $form_id);
+                return;
+            }
+    
+            // Check if question type is multiple-choice or checkbox
+            if (in_array($question->question_type, ['multiple-choice', 'checkbox'])) {
+                $options = $this->Form_model->get_options_by_question_id($question->question_id);
+                if (empty($options)) {
+                    $this->session->set_flashdata('error', 'Questions of type multiple-choice or checkbox must have at least one option.');
+                    redirect('forms/preview/' . $form_id);
+                    return;
+                }
+            }
+        }
+    
         // Generate a unique link
         $response_link = base_url("forms/respond/" . $form_id);
     
@@ -158,6 +187,10 @@ class Forms extends CI_Controller
         // Redirect to the list_user_forms function
         redirect('forms/list_user_published_forms');
     }
+    
+    
+        
+    
 
     public function respond($form_id) {
         // Check if user is logged in
