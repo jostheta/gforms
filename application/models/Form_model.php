@@ -7,35 +7,35 @@ class Form_model extends CI_Model {
     public function save_form_data($formData) {
 
         $user_id = $this->session->userdata('user_id');
-
-    // Save the form data to the database
+    
+        // Save the form data to the database
         $this->db->insert('forms', [
-        'title' => $formData['title'],
-        'description' => $formData['description'],
-        'user_id' => $user_id
-         ]);
+            'title' => $formData['title'],
+            'description' => $formData['description'],
+            'user_id' => $user_id
+        ]);
 
         $formId = $this->db->insert_id();
-
+    
         foreach ($formData['questions'] as $question) {
-        $this->db->insert('questions', [
-            'form_id' => $formId,
-            'question_text' => $question['question'],
-            'question_type' => $question['type']
-        ]);
-        $questionId = $this->db->insert_id();
-
-        if ($question['type'] !== 'paragraph') {
-            foreach ($question['options'] as $option) {
-                $this->db->insert('options', [
-                    'question_id' => $questionId,
-                    'option_text' => $option
-                ]);
+            $this->db->insert('questions', [
+                'form_id' => $formId,
+                'question_text' => $question['question'],
+                'question_type' => $question['type']
+            ]);
+            $questionId = $this->db->insert_id();
+    
+            if ($question['type'] !== 'paragraph') {
+                foreach ($question['options'] as $option) {
+                    $this->db->insert('options', [
+                        'question_id' => $questionId,
+                        'option_text' => $option
+                    ]);
+                }
             }
         }
-        }
-}
-
+    }
+    
     public function get_all_user_forms() {
     $user_id = $this->session->userdata('user_id');
     $this->db->where('user_id', $user_id);
@@ -143,27 +143,27 @@ class Form_model extends CI_Model {
         $response_id = $this->db->insert_id();
         
         // Insert each answer
-        foreach ($responses as $question_id => $answer) {
-            if (is_array($answer)) {
-                foreach ($answer as $answer_text) {
+            foreach ($responses as $question_id => $answer) {
+                if (is_array($answer)) {
+                    foreach ($answer as $answer_text) {
+                        $answer_data = [
+                            'response_id' => $response_id,
+                            'question_id' => $question_id,
+                            'answer_text' => $answer_text,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ];
+                        $this->db->insert('response_answers', $answer_data);
+                    }
+                } else {
                     $answer_data = [
                         'response_id' => $response_id,
                         'question_id' => $question_id,
-                        'answer_text' => $answer_text,
+                        'answer_text' => $answer,
                         'created_at' => date('Y-m-d H:i:s'),
                     ];
                     $this->db->insert('response_answers', $answer_data);
                 }
-            } else {
-                $answer_data = [
-                    'response_id' => $response_id,
-                    'question_id' => $question_id,
-                    'answer_text' => $answer,
-                    'created_at' => date('Y-m-d H:i:s'),
-                ];
-                $this->db->insert('response_answers', $answer_data);
             }
-        }
         
         $this->db->trans_complete();
         

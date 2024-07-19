@@ -15,7 +15,7 @@
                     <?php if ($form->is_published == 0) : ?>
                         <tr>
                             <td>
-                                <a href="<?= base_url() ?>forms/preview/<?=$form->form_id?>">
+                                <a href="<?= base_url() ?>forms/view_form/<?=$form->form_id?>">
                                 <?= htmlspecialchars($form->title ? $form->title : $form->form_id, ENT_QUOTES, 'UTF-8') ?>
                                 </a>
                             </td>

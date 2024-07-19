@@ -12,10 +12,19 @@ class Pages extends CI_Controller {
         //storing the title of the page
         $data['title'] = ucfirst($page);
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header_home');
         $this->load->view('pages/'.$page, $data);
         $this->load->view('templates/footer');
     }
+
+    public function hero()
+    {
+        //storing the title of the page
+        
+        $this->load->view('pages/hero');
+        
+    }
+
 
 }
 

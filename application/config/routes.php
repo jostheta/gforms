@@ -16,6 +16,7 @@ $route['responses/index/(:num)'] = 'Responses/index/$1';
 
 
 //Routes of the pages controller
+$route['hero'] = 'Pages/hero';
 $route['default_controller'] = 'Pages/view';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -6,6 +6,7 @@
     <title>Gforms</title>
    
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url()?>assets/css/tailwind.min.css">
     <link rel= "stylesheet" href = "<?= base_url() ?>assets/css/style.css">
 </head>
 <body style="background-color:white;"><!--#f0ebf8-->
@@ -16,8 +17,8 @@
             </div>
             <div id = "navbar">
                 <ul class = "nav navbar-nav">
-                <?php if($this->session->userdata('logged_in')) : ?>
                     <li><a href = "<?= base_url(); ?>home">Home</a></li>
+                <?php if($this->session->userdata('logged_in')) : ?>
                     <li><a href="<?= base_url(); ?>my_forms">My Forms</a></li>
                     <li><a href="<?= base_url(); ?>my_drafts">My Drafts</a></li>
                     <li><a href="<?=base_url(); ?>responses">Responses</a></li>

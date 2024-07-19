@@ -20,20 +20,20 @@ class Forms extends CI_Controller
         }
 
 
-    public function submit_form() {
-        $formData = $this->input->post('formData');
-        $decodedData = json_decode($formData, true);
-    
+        public function submit_form() {
+            $formData = $this->input->post('formData');
+            $decodedData = json_decode($formData, true);
+        
         // Process the form data here
         // Example: Save the form data to the database
-    
+                
         $this->load->model('Form_model');
         
-        $this->Form_model->save_form_data($decodedData);
-    
-        echo json_encode(['status' => 'success', 'message' => 'Form data submitted successfully']);
-    }
-
+            $this->Form_model->save_form_data($decodedData);
+        
+            echo json_encode(['status' => 'success', 'message' => 'Form data submitted successfully']);
+        }
+        
     public function my_forms() {
 
         $this->load->model('Form_model');

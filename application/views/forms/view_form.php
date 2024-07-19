@@ -66,9 +66,9 @@
             <button id="add-question">
                 <img src="<?= base_url() ?>assets/images/add.png" width="20px" height="20px" alt="add button">
             </button>
-            <button id="update-form" data-form_id="<?= $form->form_id; ?>" style="color: #fff; background-color: #1a73e8; font-weight: 500; padding: 10px; border: none;">Update</button>
         </div>
     </div>
+    <button class="update-form-button"id="update-form" data-form_id="<?= $form->form_id; ?>">Update</button>
 </div>
 
 <!-- Option Template -->

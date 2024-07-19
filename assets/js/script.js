@@ -98,6 +98,7 @@ $(document).ready(function() {
 
     // Function to set the active question and scroll the sidebar
     function setActiveQuestion(questionBox) {
+        
         // Remove active class from all question boxes
         $('.question-box').removeClass('active');
 
@@ -106,9 +107,15 @@ $(document).ready(function() {
 
         // Scroll sidebar to the active question
         var offset = questionBox.offset().top - $('.sidebar').offset().top;
+        console.log(questionBox.offset().top,'question');
+        console.log($('.sidebar').offset().top,'sidebar');
+        console.log(offset,'offset');
+        console.log(offset + $('.sidebar').scrollTop(),'offset plus sidebar');
+        
         $('.sidebar').animate({
             scrollTop: offset + $('.sidebar').scrollTop()
         }, 500);
+
     }
 
     // Add click event listener to all question boxes to set active question
@@ -224,7 +231,7 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#response-form').on('submit', function(e) {
             e.preventDefault();
-    
+
             $.ajax({
                 url: $(this).attr('action'),
                 type: $(this).attr('method'),

@@ -321,6 +321,19 @@ tr:nth-child(even) {
   border-left: 6px solid #1a73e8;
 }
 
+.update-form-button{
+  color: #fff; 
+  background-color: #7349bd; 
+  font-family:'Roboto';
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  width: 96px;
+  border-radius: 5px;
+  text-align: center;
+  margin-left:365px;
+  margin-top: 10px;
+}
 
 
 
