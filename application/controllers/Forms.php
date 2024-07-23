@@ -220,20 +220,36 @@ class Forms extends CI_Controller
 
     public function submit_response() {
         $this->load->model('Form_model');
-        
+    
         $form_id = $this->input->post('form_id');
         $responses = $this->input->post('responses');
-        
-        if ($this->Form_model->save_responses($form_id, $responses)) {
-            $this->output
-                 ->set_content_type('application/json')
-                 ->set_output(json_encode(['success' => true]));
+        $questions = $this->Form_model->get_questions_by_form_id($form_id); // Assuming you have a method to get questions by form_id
+    
+        $errors = [];
+    
+        foreach ($questions as $question) {
+            if ($question->is_required && empty($responses[$question->question_id])) {
+                $errors[$question->question_id] = 'This is a required question';
+            }
+        }
+    
+        if (!empty($errors)) {
+            $this->session->set_flashdata('errors', $errors);
+            $this->session->set_flashdata('responses', $responses); // Persisting responses
+            redirect('forms/respond_form/' . $form_id); // Redirect back to the form
         } else {
-            $this->output
-                 ->set_content_type('application/json')
-                 ->set_output(json_encode(['success' => false]));
+            if ($this->Form_model->save_responses($form_id, $responses)) {
+                $this->output
+                     ->set_content_type('application/json')
+                     ->set_output(json_encode(['success' => true]));
+            } else {
+                $this->output
+                     ->set_content_type('application/json')
+                     ->set_output(json_encode(['success' => false]));
+            }
         }
     }
+    
 
     // List all forms of the current logged-in user
     public function list_user_forms() {

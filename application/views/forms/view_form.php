@@ -18,6 +18,7 @@
                                     <select class="question-box_header_question-type_select">
                                         <option value="multiple-choice" <?= $question->question_type == 'multiple-choice' ? 'selected' : '' ?>>Multiple choice</option>
                                         <option value="checkbox" <?= $question->question_type == 'checkbox' ? 'selected' : '' ?>>Checkbox</option>
+                                        <option value="dropdown" <?= $question->question_type == 'dropdown' ? 'selected' : '' ?>>Dropdown</option>
                                         <option value="paragraph" <?= $question->question_type == 'paragraph' ? 'selected' : '' ?>>Paragraph</option>
                                     </select>
                                 </div>
@@ -36,7 +37,7 @@
                                 <?php if (!empty($question->options)) : ?>
                                     <?php foreach ($question->options as $optionIndex => $option) : ?>
                                         <div class="question-box_option-block" data-option_id="<?= htmlspecialchars($option->option_id, ENT_QUOTES, 'UTF-8') ?>">
-                                            <img class="question-type-image" src="<?= base_url() ?>assets/images/<?= $question->question_type == 'multiple-choice' ? 'circle' : 'square' ?>.png" alt="option <?= $question->question_type ?>" width="16px" height="16px">
+                                        <img class="question-type-image" src="<?= base_url() ?>assets/images/<?= $question->question_type == 'multiple-choice' ? 'circle' : ($question->question_type == 'checkbox' ? 'square' : ($question->question_type == 'dropdown' ? 'down-arrow' : '')) ?>.png" alt="option <?= $question->question_type ?>" width="16px" height="16px">
                                             <input type="text" value="<?= htmlspecialchars($option->option_text, ENT_QUOTES, 'UTF-8') ?>" class="question-box_option-block_option-text" placeholder="Option <?= $optionIndex + 1 ?>">
                                             <?php if ($optionIndex > 0) : ?>
                                                 <button class="question-box_option-block_option-close"><img src="<?= base_url() ?>assets/images/close.png" alt="close option"></button>
@@ -53,6 +54,9 @@
                             <div class="question-box_footer">
                                 <button class="duplicate-question"><img src="<?= base_url() ?>assets/images/duplicate.png" width="24px" height="24px"></button>
                                 <button class="delete-question"><img src="<?= base_url() ?>assets/images/trash.png" alt="delete question"></button>
+                                <label class="checkbox-inline"> Required 
+                                    <input type="checkbox" class="required-checkbox" <?= $question->is_required ? 'checked' : '' ?>>
+                                </label>
                             </div>
                         </div>
                         <br>

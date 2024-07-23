@@ -37,6 +37,9 @@ $(document).ready(function() {
         } else if (currentQuestionType === 'checkbox') {
             newOption.find('img').attr('src', base_url+'assets/images/square.png');
         }
+          else if (currentQuestionType === 'dropdown') {
+            newOption.find('img').attr('src', base_url+'assets/images/down-arrow.png');
+        }
 
         if (optionCount > 1) {
             newOption.append('<button class="question-box_option-block_option-close"><img src="'+base_url+'assets/images/close.png" alt="close option"></button>');
@@ -86,7 +89,14 @@ $(document).ready(function() {
             image.attr('alt', 'Square for Checkbox');
             optionsContainer.show();
             shortAnswerContainer.hide();
-        } else if (selectedType === 'paragraph') {
+        } 
+          else if (selectedType === 'dropdown') {
+            image.attr('src', base_url+'assets/images/down-arrow.png');
+            image.attr('alt', 'down arrow for dropdown');
+            optionsContainer.show();
+            shortAnswerContainer.hide();
+        }
+          else if (selectedType === 'paragraph') {
             image.attr('src', '');
             image.attr('alt', '');
             optionsContainer.hide();
@@ -136,6 +146,7 @@ $(document).ready(function() {
             var questionData = {
                 question: questionBox.find('.question-box_header_question').val(),
                 type: questionBox.find('#question-type').val(),
+                required: questionBox.find('.required-checkbox').is(':checked') ? 1 : 0,
                 options: []
             };
 
@@ -229,29 +240,38 @@ $(document).ready(function() {
     });
 
     $(document).ready(function() {
-        $('#response-form').on('submit', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(data) {
-                    if (data.success) {
-                        alert('Response submitted successfully!');
-                        // Optionally, you can clear the form or redirect the user
-                        window.location.href = base_url + 'my_forms';
-                    } else {
+        // Handle dropdowns with initial "Choose" option
+        $('select[data-initial-value="choose"]').on('change', function() {
+            var $this = $(this);
+            if ($this.val() === "") {
+                $this.addClass('default-value');
+            } else {
+                $this.removeClass('default-value');
+            }
+        });
+    
+        $(document).ready(function() {
+            $('#response-form').on('submit', function(e) {
+                e.preventDefault();
+    
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            alert('Response submitted successfully!');
+                            // Optionally, you can clear the form or redirect the user
+                            window.location.href = base_url + 'my_forms';
+                        } else {
+                            alert('An error occurred. Please try again.');
+                        }
+                    },
+                    error: function() {
                         alert('An error occurred. Please try again.');
                     }
-                },
-                error: function() {
-                    alert('An error occurred. Please try again.');
-                }
+                });
             });
         });
     });
-       
-    
-

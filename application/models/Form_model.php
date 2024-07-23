@@ -21,7 +21,8 @@ class Form_model extends CI_Model {
             $this->db->insert('questions', [
                 'form_id' => $formId,
                 'question_text' => $question['question'],
-                'question_type' => $question['type']
+                'question_type' => $question['type'],
+                'is_required' => $question['required']
             ]);
             $questionId = $this->db->insert_id();
     
@@ -239,7 +240,8 @@ class Form_model extends CI_Model {
             $this->db->insert('questions', [
                 'form_id' => $form_id,
                 'question_text' => $question['question_text'],
-                'question_type' => $question['question_type']
+                'question_type' => $question['question_type'],
+                'is_required' => $question['required']
             ]);
             $question_id = $this->db->insert_id();
     

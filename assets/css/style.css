@@ -336,7 +336,39 @@ tr:nth-child(even) {
 }
 
 
+.checkbox-inline input[type="checkbox"] {
+  position: relative;
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background: #ccc;
+  outline: none;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background 0.3s;
+  margin-left:15px;
+}
 
+.checkbox-inline input[type="checkbox"]:checked {
+  background: #2196F3;
+}
+
+.checkbox-inline input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  background: #fff;
+  transition: transform 0.3s;
+}
+
+.checkbox-inline input[type="checkbox"]:checked::before {
+  transform: translateX(20px);
+  
+}
 
 
  

@@ -20,6 +20,7 @@
                             <option value="multiple-choice">Multiple choice</option>
                             <option value="checkbox">Checkbox</option>
                             <option value="paragraph">Paragraph</option>
+                            <option value="dropdown">Dropdown</option>
                         </select>
                     </div>
                 </div>
@@ -57,6 +58,7 @@
                 <div class="question-box_footer">
                     <button class="duplicate-question"><img src="<?= base_url() ?>assets/images/duplicate.png" width="24px" height="24px"></button>
                     <button class="delete-question"><img src="<?= base_url() ?>assets/images/trash.png" alt="delete question"></button>
+                    <label class="checkbox-inline"> Required <input type="checkbox" class="required-checkbox"></label>
                 </div>
             </div>
             <br>

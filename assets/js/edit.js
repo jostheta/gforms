@@ -50,6 +50,10 @@ $(document).ready(function() {
             newOption.find('.question-type-image').attr('src', base_url + 'assets/images/square.png');
             newOption.find('.question-type-image').attr('alt', 'Square for Checkbox');
         }
+          else if (currentQuestionType === 'dropdown') {
+            newOption.find('.question-type-image').attr('src', base_url + 'assets/images/down-arrow.png');
+            newOption.find('.question-type-image').attr('alt', 'down-arrow for dropdown');
+        }
     
         // Check if the close button already exists before appending it
         if (optionCount > 1 && newOption.find('.question-box_option-block_option-close').length === 0) {
@@ -106,7 +110,14 @@ $(document).ready(function() {
             images.attr('alt', 'Square for Checkbox');
             optionsContainer.show();
             shortAnswerContainer.hide();
-        } else if (selectedType === 'paragraph') {
+        } 
+        else if (selectedType === 'dropdown') {
+            images.attr('src', base_url + 'assets/images/down-arrow.png');
+            images.attr('alt', 'down-arrow for dropdown');
+            optionsContainer.show();
+            shortAnswerContainer.hide();
+        } 
+        else if (selectedType === 'paragraph') {
             images.attr('src', '');
             images.attr('alt', '');
             optionsContainer.hide();
@@ -129,6 +140,7 @@ $(document).ready(function() {
             var questionData = {
                 question_text: questionBox.find('.question-box_header_question').val(),
                 question_type: questionBox.find('.question-box_header_question-type_select').val(),
+                required: questionBox.find('.required-checkbox').is(':checked') ? 1 : 0,
                 options: []
             };
     
