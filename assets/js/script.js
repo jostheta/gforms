@@ -253,17 +253,27 @@ $(document).ready(function() {
         $(document).ready(function() {
             $('#response-form').on('submit', function(e) {
                 e.preventDefault();
-    
+                var form = $(this);
+                
                 $.ajax({
-                    url: $(this).attr('action'),
-                    type: $(this).attr('method'),
-                    data: $(this).serialize(),
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
                     dataType: 'json',
                     success: function(data) {
                         if (data.success) {
                             alert('Response submitted successfully!');
                             // Optionally, you can clear the form or redirect the user
                             window.location.href = base_url + 'my_forms';
+                        } else if (data.errors) {
+                            // Clear previous error messages
+                            $('.error-message').remove();
+        
+                            // Display validation errors
+                            $.each(data.errors, function(question_id, error_message) {
+                                var questionBox = $('div[data-question-id="' + question_id + '"]');
+                                questionBox.append('<div class="error-message" style="color:red;">' + error_message + '</div>');
+                            });
                         } else {
                             alert('An error occurred. Please try again.');
                         }
@@ -274,4 +284,5 @@ $(document).ready(function() {
                 });
             });
         });
+            
     });

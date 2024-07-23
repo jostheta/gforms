@@ -223,7 +223,7 @@ class Forms extends CI_Controller
     
         $form_id = $this->input->post('form_id');
         $responses = $this->input->post('responses');
-        $questions = $this->Form_model->get_questions_by_form_id($form_id); // Assuming you have a method to get questions by form_id
+        $questions = $this->Form_model->get_questions_by_form_id($form_id);
     
         $errors = [];
     
@@ -234,9 +234,9 @@ class Forms extends CI_Controller
         }
     
         if (!empty($errors)) {
-            $this->session->set_flashdata('errors', $errors);
-            $this->session->set_flashdata('responses', $responses); // Persisting responses
-            redirect('forms/respond_form/' . $form_id); // Redirect back to the form
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode(['success' => false, 'errors' => $errors]));
         } else {
             if ($this->Form_model->save_responses($form_id, $responses)) {
                 $this->output
@@ -248,6 +248,30 @@ class Forms extends CI_Controller
                      ->set_output(json_encode(['success' => false]));
             }
         }
+    }
+    
+    
+    public function respond_form($form_id) {
+        $this->load->model('Form_model');
+    
+        $form = $this->Form_model->get_form_by_id($form_id);
+        $questions = $this->Form_model->get_questions_by_form_id($form_id);
+    
+        $responses = $this->session->flashdata('responses');
+        $errors = $this->session->flashdata('errors');
+        $success = $this->session->flashdata('success');
+        $error = $this->session->flashdata('error');
+    
+        $data = [
+            'form' => $form,
+            'questions' => $questions,
+            'responses' => $responses,
+            'errors' => $errors,
+            'success' => $success,
+            'error' => $error,
+        ];
+    
+        $this->load->view('forms/respond_form', $data);
     }
     
 

@@ -7,6 +7,15 @@
                 <div class="form_container_top_desc"><?= htmlspecialchars($form->description, ENT_QUOTES, 'UTF-8') ?>
                 </div>
             </div>
+
+            <?php if (isset($success)): ?>
+                <div class="alert alert-success"><?= $success ?></div>
+            <?php endif; ?>
+
+            <?php if (isset($error)): ?>
+                <div class="alert alert-danger"><?= $error ?></div>
+            <?php endif; ?>
+
             <form id="response-form" action="<?= base_url('forms/submit_response') ?>" method="post">
                 <input type="hidden" name="form_id" value="<?= $form->form_id ?>">
                 <div id="questions-container">
@@ -16,7 +25,7 @@
                         $responses = $this->session->flashdata('responses');
                         ?>
                         <?php foreach ($questions as $index => $question): ?>
-                            <div class="question-box"
+                            <div class="question-box" data-question-id="<?= $question->question_id ?>"
                                 data-question-type="<?= htmlspecialchars($question->question_type, ENT_QUOTES, 'UTF-8') ?>"
                                 data-required="<?= $question->is_required ? 'true' : 'false' ?>">
                                 <div class="question-box_header">
@@ -36,7 +45,6 @@
                                         <textarea class="response-text-area" style="color:black;font-style:normal;"
                                             name="responses[<?= $question->question_id ?>]"
                                             placeholder="Your Answer"><?php echo isset($responses[$question->question_id]) ? htmlspecialchars($responses[$question->question_id], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
-
                                     </div>
                                 <?php else: ?>
                                     <div id="options-container">
