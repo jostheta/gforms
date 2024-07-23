@@ -290,6 +290,9 @@ class Forms extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $data['responses'] = $this->Form_model->get_responses_by_form($form_id);
         $data['form'] = $this->Form_model->get_form($form_id);
+        $responses = $this->Form_model->get_responses_by_form($form_id);
+        
+
         
         $this->load->view('templates/header');
         $this->load->view('forms/form_responses', $data);

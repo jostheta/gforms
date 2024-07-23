@@ -115,17 +115,6 @@ $(document).ready(function() {
         // Add active class to the clicked question box
         questionBox.addClass('active');
 
-        // Scroll sidebar to the active question
-        var offset = questionBox.offset().top - $('.sidebar').offset().top;
-        console.log(questionBox.offset().top,'question');
-        console.log($('.sidebar').offset().top,'sidebar');
-        console.log(offset,'offset');
-        console.log(offset + $('.sidebar').scrollTop(),'offset plus sidebar');
-        
-        $('.sidebar').animate({
-            scrollTop: offset + $('.sidebar').scrollTop()
-        }, 500);
-
     }
 
     // Add click event listener to all question boxes to set active question

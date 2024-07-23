@@ -138,7 +138,7 @@ class Form_model extends CI_Model {
         $response_data = [
             'form_id' => $form_id,
             'user_id' => $this->session->userdata('user_id'), // Set user_id if applicable
-            'created_at' => date('Y-m-d H:i:s'),
+            'submitted_at' => date('Y-m-d H:i:s'),
         ];
         $this->db->insert('responses', $response_data);
         $response_id = $this->db->insert_id();
@@ -176,12 +176,15 @@ class Form_model extends CI_Model {
         $query = $this->db->get('forms');
         return $query->result();
     }
-    
     public function get_responses_by_form($form_id) {
-        $this->db->where('form_id', $form_id);
-        $query = $this->db->get('responses');
+        $this->db->select('responses.user_id, users.username, responses.submitted_at,responses.response_id'); 
+        $this->db->from('responses');
+        $this->db->join('users', 'responses.user_id = users.user_id');
+        $this->db->where('responses.form_id', $form_id);
+        $query = $this->db->get();
         return $query->result();
     }
+    
     
     public function get_response($response_id) {
         $this->db->where('response_id', $response_id);

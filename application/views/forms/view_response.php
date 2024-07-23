@@ -15,7 +15,7 @@
                         Response ID: <?= $response->response_id ?>
                     </div>
                     <div class="form_container_top_user-details">
-                        Submitted At: <?= date('Y-m-d H:i:s', strtotime($response->created_at)) ?>
+                        Submitted At: <?= date('Y-m-d H:i:s', strtotime($response->submitted_at)) ?>
                     </div>
                 </div>
             </div>
