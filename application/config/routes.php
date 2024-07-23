@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 //Routes of the forms controller
+$route['login_redirect/(:num)'] = 'Users/login_redirect/$1';
+
 $route['create'] = 'Forms/create';
 $route['my_forms'] = 'Forms/my_forms';
 $route['my_drafts'] = 'Forms/my_drafts';
@@ -12,6 +14,7 @@ $route['responses'] = 'Forms/list_user_forms';
 $route['edit_form/(:num)'] = 'Forms/edit_form/$1';
 
 $route['responses/index/(:num)'] = 'Responses/index/$1';
+
 
 
 
