@@ -7,6 +7,7 @@
    
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/bootstrap.min.css">
     <link rel= "stylesheet" href = "<?= base_url() ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/jquery-ui-themes/themes/base/jquery-ui.css">
 </head>
 <body style="background-color:white;"><!--#f0ebf8-->
     <nav class = "navbar navbar-inverse" style="background-color:rgb(103, 58, 183); margin-bottom:0px;">

@@ -2,6 +2,17 @@ $(document).ready(function() {
     console.log('jQuery is ready');
     let questionCount = 0;
 
+    // Make the question container sortable
+    $('.form_container').sortable({
+        items: '.question-box:visible',
+        handle: '.question-box_header',
+        placeholder: 'sortable-placeholder',
+        update: function(event, ui) {
+            // Handle the order update here if needed
+            updateQuestionOrder();
+        }
+    });
+
     // Add new question
     $('#add-question').click(function() {
         questionCount++;
@@ -106,15 +117,21 @@ $(document).ready(function() {
         questionBox.attr('data-question-type', selectedType);
     }).trigger('change');
 
-    // Function to set the active question and scroll the sidebar
     function setActiveQuestion(questionBox) {
-        
         // Remove active class from all question boxes
         $('.question-box').removeClass('active');
-
+    
         // Add active class to the clicked question box
         questionBox.addClass('active');
-
+    
+        // Scroll the sidebar to the active question
+       
+        // Move the sidebar beside the active question
+        sidebar.css({
+            position: 'absolute',
+            top: offset,
+            right: 0 // Align the sidebar to the right side of its container
+        });
     }
 
     // Add click event listener to all question boxes to set active question
@@ -166,6 +183,12 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Function to update question order
+    function updateQuestionOrder() {
+        // Here you can handle the update event if needed, e.g., save the new order to the database
+        console.log('Question order updated');
+    }
 });
 
 
