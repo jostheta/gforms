@@ -1,19 +1,22 @@
-
 <div class="page_layout">
     <br>
     <div class="section">
+    <div class="reference-point"></div>
         <div class="form_container">
             <div class="form_container_top">
-                <input type="text" id="form-title" class="form_container_top_title" style="color: black;" placeholder="Untitled Form" required autofocus>
-                <input type="text" id="form-desc" class="form_container_top_desc" style="color: black;" placeholder="Form Description" required autofocus>
+                <input type="text" id="form-title" class="form_container_top_title" style="color: black;"
+                    placeholder="Untitled Form" required autofocus>
+                <input type="text" id="form-desc" class="form_container_top_desc" style="color: black;"
+                    placeholder="Form Description" required autofocus>
             </div>
 
-            <br>
+
             <!-- New Questions will get added here -->
             <div class="question-box" id="question-template" style="display:none;" data-question-type="multiple-choice">
                 <!-- This is the question-box header contains question, type, add an img -->
                 <div class="question-box_header">
-                    <input type="text" id="" class="question-box_header_question" style="color: black;" placeholder="Question" required autofocus>
+                    <input type="text" id="" class="question-box_header_question" style="color: black;"
+                        placeholder="Question" required autofocus>
                     <img src="<?= base_url() ?>assets/images/image.png" alt="add an image" height="20px" width="20px">
                     <div class="question-box_header_question-type">
                         <select id="question-type" class="question-box_header_question-type_select">
@@ -41,11 +44,13 @@
                 <!-- These are the options -->
                 <div id="options-container">
                     <div class="question-box_option-block" id="option-template">
-                        <img id="question-type-image" src="<?= base_url() ?>assets/images/circle.png" alt="option circle" width="16px" height="16px">
-                        <input id = "option-text" type="text" placeholder="Option1" class="question-box_option-block_option-text">
+                        <img id="question-type-image" src="<?= base_url() ?>assets/images/circle.png"
+                            alt="option circle" width="16px" height="16px">
+                        <input id="option-text" type="text" placeholder="Option1"
+                            class="question-box_option-block_option-text">
                     </div>
                     <br>
-                    
+
                     <div id="new-options">
                         <!-- New options should be appended here -->
                     </div>
@@ -56,30 +61,31 @@
                 </div>
 
                 <div class="question-box_footer">
-                    <button class="duplicate-question"><img src="<?= base_url() ?>assets/images/duplicate.png" width="24px" height="24px"></button>
-                    <button class="delete-question"><img src="<?= base_url() ?>assets/images/trash.png" alt="delete question"></button>
+                    <button class="duplicate-question"><img src="<?= base_url() ?>assets/images/duplicate.png"
+                            width="24px" height="24px"></button>
+                    <button class="delete-question"><img src="<?= base_url() ?>assets/images/trash.png"
+                            alt="delete question"></button>
                     <label class="checkbox-inline"> Required <input type="checkbox" class="required-checkbox"></label>
                 </div>
             </div>
             <br>
+            
         </div>
 
         <div class="sidebar">
             <button id="add-question" class="add-question-button">
-            <img src="<?= base_url() ?>assets/images/add.png" width="20px" height="20px" alt="add button">
+                <img src="<?= base_url() ?>assets/images/add.png" width="20px" height="20px" alt="add button">
             </button>
         </div>
     </div>
     <button id="submit-form" class="submit-button">Submit</button>
 </div>
 
-    <!-- now we are trying the side bar -->
-    
-    
-    
-     <!-- Include jQuery from a CDN -->
-     <!-- <script src="<?= base_url() ?>assets/js/jquery.js"></script> -->
-    <!-- Link to external script -->
-    <!-- <script src="<?= base_url() ?>assets/js/script.js"></script> -->
-   
+<!-- now we are trying the side bar -->
 
+
+
+<!-- Include jQuery from a CDN -->
+<!-- <script src="<?= base_url() ?>assets/js/jquery.js"></script> -->
+<!-- Link to external script -->
+<!-- <script src="<?= base_url() ?>assets/js/script.js"></script> -->

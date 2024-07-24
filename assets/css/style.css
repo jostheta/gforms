@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh; /* Adjust 60px according to the height of your .form_header */
-    overflow-y: auto; /* Add scrollbars if content overflows vertically */
+    overflow-y: auto;/* Add scrollbars if content overflows vertically */
 
   }
 
@@ -298,8 +298,10 @@ tr:nth-child(even) {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   border-radius: 5px;
   height: 50px;
+  margin-top:0px;
   /* overflow-y: auto; */
 }
+
 
 .submit-button{
   color: #fff; 

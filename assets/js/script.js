@@ -21,7 +21,7 @@ $(document).ready(function() {
         var newQuestion = $('#question-template').clone();
         newQuestion.removeAttr('id');
         newQuestion.attr('data-question-type', 'multiple-choice'); // Set default question type
-        newQuestion.find('.question-box_header_question').attr('placeholder', 'Question ' + questionCount);
+        newQuestion.find('.question-box_header_question').attr('placeholder', 'Question ' );
         newQuestion.find('.question-box_option-block_option-text').attr('placeholder', 'Option 1');
         newQuestion.show(); // Ensure the cloned template is visible
 
@@ -30,6 +30,11 @@ $(document).ready(function() {
 
         // Scroll to the newly added question and set it as active
         setActiveQuestion(newQuestion);
+
+        //update sidebar
+        updateSidebarMarginTop();
+        
+       
     });
 
     // Add new option to a question
@@ -67,8 +72,26 @@ $(document).ready(function() {
 
     // Delete a question
     $(document).on('click', '.delete-question', function() {
-        $(this).closest('.question-box').next('br').remove();
-        $(this).closest('.question-box').remove();
+        questionCount = questionCount - 1;
+        var questionBox = $(this).closest('.question-box');
+        var prevQuestionBox = questionBox.prev('.question-box');
+        var nextQuestionBox = questionBox.next('.question-box');
+        
+        questionBox.next('br').remove(); // Remove the adjacent <br> element
+        questionBox.remove(); // Remove the question box
+    
+        if (nextQuestionBox.length) {
+            setActiveQuestion(nextQuestionBox);
+        } else if (prevQuestionBox.length) {
+            setActiveQuestion(prevQuestionBox);
+        } else {
+            // No questions left, align sidebar with form container top
+            setActiveQuestion($([])); // Pass an empty jQuery object
+        }
+
+        //update sidebar
+        updateSidebarMarginTop();
+       
     });
 
     // Duplicate a question
@@ -122,22 +145,40 @@ $(document).ready(function() {
         $('.question-box').removeClass('active');
     
         // Add active class to the clicked question box
-        questionBox.addClass('active');
-    
-        // Scroll the sidebar to the active question
-       
-        // Move the sidebar beside the active question
-        sidebar.css({
-            position: 'absolute',
-            top: offset,
-            right: 0 // Align the sidebar to the right side of its container
-        });
+        questionBox.addClass('active');    
     }
 
     // Add click event listener to all question boxes to set active question
     $(document).on('click', '.question-box', function() {
-        setActiveQuestion($(this));
+        setActiveQuestion($(this));  
+        //update sidebar
+        updateSidebarMarginTop();
     });
+
+    //update Sidebar Margin
+    function updateSidebarMarginTop() {
+        var sidebar = $('.sidebar');
+        var questionCount = $('.question-box').length;
+        var referencePoint = $('.reference-point');
+        var activeQuestionBox = $('.question-box.active');
+    
+        if (questionCount === 0) {
+            sidebar.css('margin-top', '0px');
+        } else if (questionCount === 1) {
+            sidebar.css('margin-top', '185px');
+        } else {
+            if (activeQuestionBox.length) {
+                // Calculate the offset of the active question from the reference point
+                var referenceOffsetTop = referencePoint.offset().top;
+                var activeBoxOffsetTop = activeQuestionBox.offset().top;
+                var offsetTop = activeBoxOffsetTop - referenceOffsetTop;
+    
+                sidebar.css('margin-top', offsetTop + 'px');
+            }
+        }
+    }
+
+
 
     // Submit form
     $('#submit-form').click(function() {
