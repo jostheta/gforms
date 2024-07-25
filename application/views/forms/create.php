@@ -1,7 +1,8 @@
 <div class="page_layout">
     <br>
-    <div class="section">
     <div class="reference-point"></div>
+    <div class="section">
+    <!-- <div class="reference-point"></div> -->
         <div class="form_container">
             <div class="form_container_top">
                 <input type="text" id="form-title" class="form_container_top_title" style="color: black;"
@@ -17,7 +18,7 @@
                 <div class="question-box_header">
                     <input type="text" id="" class="question-box_header_question" style="color: black;"
                         placeholder="Question" required autofocus>
-                    <img src="<?= base_url() ?>assets/images/image.png" alt="add an image" height="20px" width="20px">
+                    <img style="display:none;"src="<?= base_url() ?>assets/images/image.png" alt="add an image" height="20px" width="20px">
                     <div class="question-box_header_question-type">
                         <select id="question-type" class="question-box_header_question-type_select">
                             <option value="multiple-choice">Multiple choice</option>

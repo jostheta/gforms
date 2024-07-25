@@ -299,6 +299,7 @@ tr:nth-child(even) {
   border-radius: 5px;
   height: 50px;
   margin-top:0px;
+  transition: margin-top 0.5s ease-in-out; /* Adjust the duration and easing function as needed */
   /* overflow-y: auto; */
 }
 
